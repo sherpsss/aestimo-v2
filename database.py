@@ -58,7 +58,7 @@ materialproperty = {
 'Av':1.16, # (eV) deformation potentials (Van de Walle formalism)
 'B':-1.7, # (eV) shear deformation potential (Van de Walle formalism)
 'TAUN0':0.1E-7,# Electron SRH life time
-'TAUP0':0.1E-7,# Hole SRH life time
+'TAUP0':0.1E-7,# Hole SRH  time
 'mun0':0.1,# Electron Mobility in m2/V-s
 'mup0':0.02,# Electron Mobility in m2/V-s
 'Cn0':2.8e-31,# generation recombination model parameters [cm**6/s]
@@ -808,6 +808,45 @@ alloyproperty = {
 'VSATN':3e5,# Saturation Velocity of Electrons
 'VSATP':6e5 , # Saturation Velocity of Holes
 'AVb_E':-2.1#Average Valence Band Energy or the absolute energy level
+},
+'InAlAs':{  # In0.52Al0.48As (InP-lattice-matched), 300 K
+    'Bowing_param': 0.7,          # Eg(Γ) bowing between InAs & AlAs (approx). :contentReference[oaicite:0]{index=0}
+    'Band_offset': 0.73,          # Fraction of ΔEg that goes to ΔEc vs In0.53Ga0.47As (≈0.7–0.75). :contentReference[oaicite:1]{index=1}
+
+    # Lattice (zinc-blende; c not used). In0.52Al0.48As is matched to InP → a ≈ a(InP).
+    'a0_sub': 5.8687,             # Å. :contentReference[oaicite:2]{index=2}
+    'c0_sub': None,               # not applicable (cubic)
+
+    'Material1':'InAs',
+    'Material2':'AlAs',
+
+    # Recombination lifetimes – keep your values unless you have measurements (highly process-dependent).
+    'TAUN0': 0.1e-6,              # s  (placeholder OK)
+    'TAUP0': 0.1e-6,              # s  (placeholder OK)
+
+    # Low-field mobilities (bulk alloy ballpark @300 K; tune to your doping/defects).
+    'mun0': 0.10,                 # m^2/V·s ≈ 1000 cm^2/V·s (typical for InAlAs barriers). :contentReference[oaicite:3]{index=3}
+    'mup0': 0.02,                 # m^2/V·s ≈ 200 cm^2/V·s (order-of-magnitude; alloy-limited). :contentReference[oaicite:4]{index=4}
+
+    # Auger/SRH placeholders — strongly device-specific; keep your prior numbers unless you have data.
+    'Cn0': 1.0e-30,               # cm^6/s (typical III-V order; adjust per fit)
+    'Cp0': 1.0e-29,               # cm^6/s (typical III-V order; adjust per fit)
+
+    'BETAN': 2.0,                 # field-dependent mobility exponent (keep from your model)
+    'BETAP': 1.0,                 # field-dependent mobility exponent (keep from your model)
+
+    # Saturation velocities (bulk-like, room-temp).
+    'VSATN': 2.0e5,               # m/s  ≈ 2×10^7 cm/s (electrons). :contentReference[oaicite:5]{index=5}
+    'VSATP': 1.4e5,               # m/s  ≈ 1.4×10^7 cm/s (holes). :contentReference[oaicite:6]{index=6}
+
+    # Model-Solid “average valence band energy” needs consistency with your heterojunction set.
+    # Use Vurgaftman model-solid reference values to compute it; leaving None to avoid inconsistency.
+    'AVb_E': None,
+
+    # Nonparabolicity / mass parameter:
+    # Your key 'm_e_alpha' isn’t standardly named. If it’s Kane α (nonparabolicity), use ~0.8 eV^-1 for Eg≈1.46 eV.
+    # If it’s something else, keep your previous convention. Setting a reasonable default:
+    'm_e_alpha': 0.8              # eV^-1 (Kane α ≈ 1/Eg for Γ-valley). :contentReference[oaicite:7]{index=7}
 }
 }
 # ALLOY PROPERTIES
